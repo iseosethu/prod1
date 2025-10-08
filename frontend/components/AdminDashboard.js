@@ -28,7 +28,7 @@ export default function AdminDashboard() {
       }).toString();
 
       try {
-        const res = await fetch(`http://localhost:5000/admin/servicestats?${query}`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/admin/servicestats?${query}`, {
           headers: {
             Authorization: `Bearer ${localStorage.getItem('token')}`
           }
@@ -58,8 +58,8 @@ export default function AdminDashboard() {
     async function fetchFilters() {
       const token = localStorage.getItem('token');
       const [engRes, distRes] = await Promise.all([
-        fetch('http://localhost:5000/admin/engineers', { headers: { Authorization: `Bearer ${token}` } }),
-        fetch('http://localhost:5000/admin/districts', { headers: { Authorization: `Bearer ${token}` } })
+        fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/admin/engineers`, { headers: { Authorization: `Bearer ${token}` } }),
+        fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/admin/districts`, { headers: { Authorization: `Bearer ${token}` } })
       ]);
 
       const engData = await engRes.json();

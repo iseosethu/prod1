@@ -30,7 +30,7 @@ export default function CreateServiceRequestPage() {
     }
 
     // Fetch engineers
-    fetch('http://localhost:5000/service/engineers', {
+    fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/service/engineers`, {
       headers: { Authorization: `Bearer ${token}` },
       credentials: 'include'
     })
@@ -58,7 +58,7 @@ export default function CreateServiceRequestPage() {
     if (!token) return setMessage('Missing token');
 
     try {
-      const res = await fetch('http://localhost:5000/service/create-request', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/service/create-request`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

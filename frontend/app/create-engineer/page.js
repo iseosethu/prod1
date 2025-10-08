@@ -37,7 +37,7 @@ export default function CreateEngineerPage() {
     const token = document.cookie.split('; ').find(row => row.startsWith('token='))?.split('=')[1];
 
     try {
-      const res = await fetch('http://localhost:5000/admin/create-engineer', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/admin/create-engineer`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
