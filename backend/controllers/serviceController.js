@@ -1,5 +1,5 @@
 import pool from '../config/db.js';
-import redisClient from '../config/redis.js';
+//import redisClient from '../config/redis.js';
 
 export async function logServiceRequest(req, res) {
   const { customer_name, customer_mobile, vehicle_type, issue_description } = req.body;
@@ -31,13 +31,13 @@ export async function logServiceRequest(req, res) {
   );
 
   // 4. Trigger Redis alert if balance < 500
-  const updatedBalance = engineer.balance - commission;
-  if (updatedBalance < 500) {
-    await redisClient.publish('low_balance_alerts', JSON.stringify({
-      engineer_id: engineer.id,
-      balance: updatedBalance
-    }));
-  }
+//  const updatedBalance = engineer.balance - commission;
+//  if (updatedBalance < 500) {
+//    await redisClient.publish('low_balance_alerts', JSON.stringify({
+//      engineer_id: engineer.id,
+//      balance: updatedBalance
+//    }));
+//  }
 
   res.status(201).json({ message: 'Service request logged and engineer assigned', requestId: result.rows[0].id });
 }
