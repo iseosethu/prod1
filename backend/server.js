@@ -2,20 +2,38 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import authRoutes from './routes/auth.js';
-import adminRoutes from './routes/admin.js'
+import adminRoutes from './routes/admin.js';
 import serviceRoutes from './routes/service.js';
 
 dotenv.config();
 const app = express();
-//app.use(cors());
-//app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
-app.use(cors({ origin: 'https://prod1-frontend.onrender.com', credentials: true }));
+
+// ✅ Multi-origin CORS setup
+const allowedOrigins = [
+  'https://prod1-frontend.onrender.com',
+  'http://localhost:3000'
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE']
+}));
+
 app.use(express.json());
 
+// ✅ Route mounting
 app.use('/api/auth', authRoutes);
 app.use('/admin', adminRoutes);
 app.use('/service', serviceRoutes);
 
+// ✅ Health check
 app.get('/', (req, res) => res.send('Backend is running'));
 
 const PORT = process.env.PORT || 5000;
