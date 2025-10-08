@@ -8,7 +8,8 @@ import serviceRoutes from './routes/service.js';
 dotenv.config();
 const app = express();
 //app.use(cors());
-app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+//app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+app.use(cors({ origin: 'https://prod1-frontend.onrender.com', credentials: true }));
 app.use(express.json());
 
 app.use('/api/auth', authRoutes);
